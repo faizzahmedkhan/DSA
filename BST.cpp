@@ -69,6 +69,21 @@ BSTNode* findmin(BSTNode*node){
     return curr;
 }
 
+void mirror(BSTNode*root){
+	if (root==NULL)
+	{
+		return;
+	}
+	else{
+		mirror(root->left);
+		mirror(root->right);
+
+		BSTNode*temp=root->left;
+		root->left=root->right;
+		root->right=temp;
+	}
+}
+
 BSTNode*Delete(BSTNode*node,int value){
 	if (node==NULL)
 	{
@@ -141,8 +156,13 @@ int main(){
 		case 5:
 			Display(Root);
 			break;
+
 		case 6:
 			sign=false;
+			break;
+
+		case 7:
+			mirror(Root);
 			break;
 		}
 	}
