@@ -19,7 +19,9 @@ public:
         }
     }
 
-    void bfs(unordered_map<int,list<int>> &adj,unordered_map<int,bool> &visited,vector<int> &ans,int node){
+    void bfs(int node){
+        unordered_map<int, bool> visited;
+        vector<int> ans;
         queue<int>q;
         q.push(node);
         visited[node]=true;
@@ -38,24 +40,11 @@ public:
                 }       
             }
         }
-    }
-
-    void BFS(int vertex){
-        vector<int> ans;
-        unordered_map<int,bool> visited;
-        for (int i = 0; i < vertex; i++)
+        for (int i = 0; i < ans.size(); i++)
         {
-            if (!visited[i])    
-            {
-                bfs(adj,visited,ans,i);
-            }
-            
+            cout<<ans[i]<<" ";
         }
-        for (auto i:ans)
-        {
-            cout << i << " ";
-        }
-        cout << endl;
+        cout<<endl;
     }
 
     void dfs(int node, unordered_map<int,list<int>> &adj,unordered_map<int,bool> &visited,vector<int> component){
@@ -202,7 +191,7 @@ int main(){
         g.addEdge(u,v,false);
     }
     g.print();
-    g.BFS(n);
+    g.bfs(0);
     // g.DFS(n);
     string check = g.CycleDet(n);
     cout << check << endl;

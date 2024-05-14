@@ -81,7 +81,6 @@ BSTNode*Delete(BSTNode*node,int value){
 			delete node;
 			return NULL;
 		}
-		
 		else if (node->left!=NULL && node->right==NULL)
 		{
 			BSTNode*temp=node->left;

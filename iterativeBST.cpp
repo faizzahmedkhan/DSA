@@ -69,19 +69,6 @@ void search(BST*node, int value){
     }
 }
 
-// void Delete(BST*node, int value){
-//     BST*curr=node;
-//     while (curr!=NULL)
-//     {
-//         if (node->data==value)
-//         {
-//             BST*temp            
-//         }
-        
-//     }
-    
-// }
-
 void findmax(BST*node){
     BST*curr=node;
     while (curr->right!=NULL)
