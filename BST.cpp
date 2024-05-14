@@ -84,6 +84,22 @@ void mirror(BSTNode*root){
 	}
 }
 
+int height(BSTNode*root){
+	if (root==NULL)
+	
+		return 0;
+	
+	else{
+		int lh =height(root->left);
+		int rh=height(root->right);
+
+		if (lh>rh)
+			return(lh+1);
+		else return (rh+1);
+	}
+	
+}
+
 BSTNode*Delete(BSTNode*node,int value){
 	if (node==NULL)
 	{
@@ -126,13 +142,12 @@ BSTNode*Delete(BSTNode*node,int value){
 
 int main(){
 	int value;
-	
 	BSTNode*Root=NULL;
 	
 	bool sign =true;
 	while(sign==true){
 		int button;
-		cout<<"Choose options"<<endl<<"1 for insert"<<endl<<"2 for search"<<endl<<"4 to Delete"<<endl<<"5 to Display"<<endl;
+		cout<<"Choose options"<<endl<<"1 for insert"<<endl<<"2 for search"<<endl<<"4 to Delete"<<endl<<"5 to Display"<<endl<<"6 to mirror "<<endl<<"7 for height"<<endl<<"8 to end"<<endl;
 		cin>>button;
 		switch(button){
 		
@@ -158,12 +173,17 @@ int main(){
 			break;
 
 		case 6:
-			sign=false;
+			mirror(Root);
 			break;
 
 		case 7:
-			mirror(Root);
+			cout<<height(Root)<<endl;
+			break;	
+
+		case 8:
+			sign=false;
 			break;
+
 		}
 	}
 }
