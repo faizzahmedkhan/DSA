@@ -108,6 +108,65 @@ bool search(Node*root, int Search){
     
 }
 
+Node* findmax(Node*node){
+    Node*curr=node;
+    while (curr->right!=NULL)
+    {
+        curr=curr->right;
+    }
+    return curr;
+}
+
+Node* findmin(Node*node){
+    Node*curr=node;
+    while (curr->left!=NULL)
+    {
+        curr=curr->left;
+    }
+    return curr;
+}
+
+
+Node*Delete(Node*node,int value){
+	if (node==NULL)
+	{
+		return node;
+	}
+	else if (node->value==value)
+	{
+		if (node->left==NULL && node->right==NULL)
+		{
+			delete node;
+			return NULL;
+		}
+		else if (node->left!=NULL && node->right==NULL)
+		{
+			Node*temp=node->left;
+			delete node;
+			return temp;
+		}
+		else if (node->left==NULL && node->right!=NULL)
+		{
+			Node*temp=node->right;
+			delete node;
+			return temp;
+		}
+		else{
+			int min = findmin(node->right)->value;
+			node->value=min;
+			node->right=Delete(node->right,min);
+		}
+	}
+	else if (node->value<value)
+	{
+		node->right=Delete(node->right,value);
+		return node;
+	}
+		node->left=Delete(node->left,value);
+		return node;
+	
+}
+
 int main(){
     Node*root=NULL;
     bool loop =true;
@@ -145,6 +204,12 @@ int main(){
             break;
         case 4:
             cout<<"Height of root: "<<height(root)<<endl;
+            break;
+        case 5:
+            cout<<"Enter the value to delete";
+            int del;
+            cin>>del;
+            Delete(root,del);
             break;
         case 0:
             loop=false;
