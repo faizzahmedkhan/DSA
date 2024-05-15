@@ -140,14 +140,69 @@ BSTNode*Delete(BSTNode*node,int value){
 	
 }
 
+bool compareTrees(BSTNode* root1, BSTNode* root2) {
+    if (root1 == nullptr && root2 == nullptr)
+        return true;
+    if (root1 == nullptr || root2 == nullptr)
+        return false;
+    
+    return (root1->data == root2->data) &&
+           compareTrees(root1->left, root2->left) &&
+           compareTrees(root1->right, root2->right);
+}
+
+bool ancestors(BSTNode*p, int target){
+	if (p!=NULL )
+	{
+		if (p->data==target)
+		{
+			return true;
+		}
+		if (ancestors(p->left,target) || ancestors(p->right,target))
+		{
+			cout<<p->data<<" ";
+			return true;
+		}
+	}
+	return false;
+}
+
+void trace(BSTNode*root,int d){
+	if (root==NULL)
+	{
+		return ;
+	}
+	if (d==0)
+	{
+		cout<<root->data<<" ";
+	}
+	else{
+		trace(root->left,d-1);
+		trace(root->right,d-1);
+	}
+	
+}
+
+bool mirrorcheck(BSTNode* root1, BSTNode* root2) {
+    if (root1 == nullptr && root2 == nullptr)
+        return true;
+    if (root1 == nullptr || root2 == nullptr)
+        return false;
+    
+    return (root1->data == root2->data) &&
+           compareTrees(root1->left, root2->right) &&
+           compareTrees(root1->right, root2->left);
+}
+
 int main(){
 	int value;
 	BSTNode*Root=NULL;
-	
+	BSTNode*Root1=NULL;
 	bool sign =true;
 	while(sign==true){
 		int button;
-		cout<<"Choose options"<<endl<<"1 for insert"<<endl<<"2 for search"<<endl<<"4 to Delete"<<endl<<"5 to Display"<<endl<<"6 to mirror "<<endl<<"7 for height"<<endl<<"8 to end"<<endl;
+		cout<<"Choose options"<<endl<<"1 for insert"<<endl<<"2 for search"<<endl<<"3 for insert in 2nd tree"<<endl<<"4 to Delete"<<endl<<"5 to Display"<<endl<<"6 to mirror "<<endl
+		<<"7 for height"<<endl<<"8 to compare"<<endl<<"9 to find ancestors"<<endl<<"10 to go to a distance"<<endl<<"11 to check mirroring"<<endl<<"0 to end"<<endl;
 		cin>>button;
 		switch(button){
 		
@@ -162,6 +217,11 @@ int main(){
 			search(Root,value);
 			break;
 			
+        case 3:
+            cout<<" Enter value: ";
+            cin>>value;
+            Root1=insert(Root1,value);
+            break;    
 		case 4:
 			cout<<"Enter value to delete ";
 			cin>>value;
@@ -170,17 +230,51 @@ int main(){
 
 		case 5:
 			Display(Root);
+            cout<<"dusra ";
+            Display(Root1);
 			break;
 
 		case 6:
-			mirror(Root);
+			int opt;
+			cout<<"Mirror 1st tree or 2nd: ";
+			cin>>opt;
+			if (opt==1)
+			{
+				mirror(Root);
+			}
+			else{
+			mirror(Root1);
+			}
 			break;
 
 		case 7:
 			cout<<height(Root)<<endl;
 			break;	
-
-		case 8:
+        case 8:
+            if (compareTrees(Root,Root1))
+            cout<<"Same "<<endl;
+            else
+                cout<<"alag "<<endl;
+            break;
+		case 9:
+			int tar;
+			cout<<"Enter the target node: ";
+			cin>>tar;
+			ancestors(Root,tar);
+			break;
+		case 10:
+			int dis;
+			cout<<"Enter the distance you want to reach: ";
+			cin>>dis;
+			trace(Root,dis);
+			break;
+		case 11:
+			if (mirrorcheck(Root,Root1))
+            cout<<"Mirror "<<endl;
+            else
+                cout<<"Not mirror "<<endl;
+            break;
+		case 0:
 			sign=false;
 			break;
 
